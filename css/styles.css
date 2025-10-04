@@ -1,0 +1,405 @@
+/* =========================
+   Base & Theme Variables
+   ========================= */
+:root{
+  --bg: #0b0f19;
+  --bg-elev: rgba(255,255,255,0.06);
+  --text: #e9eef7;
+  --muted: #b8c2d8;
+  --brand: #e23c52;           /* Nepali flag crimson */
+  --brand-2: #205fac;         /* Nepali flag blue */
+  --accent: #58d3ff;
+  --surface: #121828;
+  --card: rgba(255,255,255,0.07);
+  --card-hover: rgba(255,255,255,0.10);
+  --border: rgba(255,255,255,0.12);
+  --ring: rgba(88, 211, 255, 0.6);
+  --radius: 18px;
+  --shadow: 0 10px 30px rgba(0,0,0,0.35);
+  --shadow-soft: 0 6px 18px rgba(0,0,0,0.25);
+
+  --w: 1100px;               /* wrap width */
+  --space-1: .4rem;
+  --space-2: .75rem;
+  --space-3: 1.1rem;
+  --space-4: 1.6rem;
+  --space-5: 2.2rem;
+  --space-6: 3.2rem;
+  --space-7: 4.5rem;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans", "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+/* Light mode (optional): uncomment if you want light by default
+@media (prefers-color-scheme: light){
+  :root{
+    --bg:#fbfdff; --text:#0f172a; --muted:#475569;
+    --surface:#ffffff; --bg-elev:#ffffff; --card:#ffffff; --card-hover:#f6f9ff;
+    --border:#e6ecf5; --ring: rgba(32,95,172,.35);
+  }
+}
+*/
+
+/* =========================
+   Reset-ish & Base
+   ========================= */
+*{ box-sizing: border-box; }
+html, body{ height: 100%; }
+html{ scroll-behavior: smooth; }
+body{
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--text);
+  background:
+    radial-gradient(1200px 600px at 10% 0%, #142039 0%, transparent 60%),
+    radial-gradient(900px 500px at 90% 10%, #1a2a4d 0%, transparent 60%),
+    linear-gradient(180deg, #0a0f1b 0%, #0b0f19 100%);
+  background-color: var(--bg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img, svg, video{ max-width: 100%; display: block; }
+
+/* Utility */
+.wrap{
+  width: min(100% - 2rem, var(--w));
+  margin-inline: auto;
+}
+
+/* Links */
+a{ color: inherit; text-decoration: none; }
+a:hover{ text-decoration: none; }
+a:focus-visible{
+  outline: 3px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: 10px;
+}
+
+/* =========================
+   Header & Navigation
+   ========================= */
+.site-header{
+  position: sticky; top: 0; z-index: 50;
+  background: linear-gradient(180deg, rgba(10,15,27,.9) 0%, rgba(10,15,27,.6) 100%);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-inner{
+  display: flex; align-items: center; justify-content: space-between;
+  padding: var(--space-3) 0;
+}
+
+.brand{
+  display: inline-flex; align-items: center; gap: .6rem;
+  font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+}
+.brand-mark{ font-size: 1.25rem; transform: translateY(1px); }
+.brand-text{
+  background: linear-gradient(90deg, var(--brand), var(--brand-2));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+/* nav */
+.nav-toggle{
+  appearance: none;
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: .55rem .8rem;
+  border-radius: 12px;
+  cursor: pointer;
+  display: inline-flex; align-items: center; gap: .4rem;
+}
+.nav-toggle:hover{ background: var(--card-hover); }
+.nav-list{
+  list-style: none; padding: 0; margin: 0;
+}
+
+/* Small screens: collapsed menu */
+@media (max-width: 880px){
+  .nav-list{
+    display: none;
+    position: absolute; right: 1rem; top: 70px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: .5rem;
+    min-width: 240px;
+  }
+  .nav-list li{ display: block; }
+  .nav-list a{
+    display: block;
+    padding: .7rem .9rem;
+    border-radius: 10px;
+    color: var(--muted);
+  }
+  .nav-list a:hover{ background: var(--card-hover); color: var(--text); }
+  /* Show when JS toggles aria-expanded=true on button */
+  .nav-toggle[aria-expanded="true"] + .nav-list{ display: block; }
+}
+
+/* Large screens: horizontal menu */
+@media (min-width: 881px){
+  .nav-toggle{ display: none; }
+  .nav-list{ display: flex; gap: .6rem; }
+  .nav-list a{
+    display: inline-block;
+    padding: .55rem .75rem;
+    border-radius: 10px;
+    color: var(--muted);
+    border: 1px solid transparent;
+  }
+  .nav-list a:hover{
+    color: var(--text);
+    background: var(--card);
+    border-color: var(--border);
+  }
+}
+
+/* =========================
+   Hero
+   ========================= */
+.hero{
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(1200px 400px at 20% 10%, rgba(32,95,172,.28) 0%, transparent 60%),
+    radial-gradient(900px 400px at 80% 0%, rgba(226,60,82,.25) 0%, transparent 60%);
+}
+.hero-inner{
+  padding: var(--space-7) 0 var(--space-6);
+  text-align: center;
+}
+.hero h1{
+  margin: 0 0 .4rem 0;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1.1;
+  letter-spacing: .02em;
+}
+.lead{
+  margin: .75rem auto 1.4rem;
+  max-width: 60ch;
+  color: var(--muted);
+  font-size: clamp(1rem, 2.3vw, 1.1rem);
+}
+.cta{
+  display: inline-block;
+  margin-top: .3rem;
+  padding: .85rem 1.15rem;
+  font-weight: 700;
+  border-radius: 14px;
+  background-image: linear-gradient(90deg, var(--brand), var(--brand-2));
+  color: white;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(255,255,255,0.15);
+  transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+}
+.cta:hover{ transform: translateY(-1px); filter: brightness(1.05); }
+.cta:active{ transform: translateY(0); }
+
+/* Decorative wave under hero */
+.hero-wave{
+  width: 100%; height: 110px; display: block;
+  fill: rgba(255,255,255,0.05);
+  transform: translateY(10px);
+}
+
+/* =========================
+   Sections
+   ========================= */
+.section-head{
+  margin-top: var(--space-5);
+  margin-bottom: var(--space-3);
+  text-align: center;
+}
+.section-head h2{
+  margin: 0 0 .4rem;
+  font-size: clamp(1.4rem, 3.2vw, 2rem);
+}
+.subhead{ color: var(--muted); margin: 0; }
+
+/* =========================
+   Card Grid (Topics)
+   ========================= */
+.card-grid{
+  margin-top: var(--space-4);
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1rem;
+}
+@media (min-width: 540px){
+  .card-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 900px){
+  .card-grid{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (min-width: 1200px){
+  .card-grid{ grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+.card{
+  position: relative;
+  padding: 1.1rem 1.1rem 1.2rem;
+  background: linear-gradient(180deg, var(--card) 0%, rgba(255,255,255,0.03) 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  transition: transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
+  min-height: 150px;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: .35rem;
+}
+.card:hover{
+  transform: translateY(-4px);
+  background: linear-gradient(180deg, var(--card-hover) 0%, rgba(255,255,255,0.05) 100%);
+  border-color: rgba(255,255,255,0.20);
+  box-shadow: var(--shadow);
+}
+.card-emoji{
+  font-size: 1.6rem;
+  width: 2.2rem; height: 2.2rem;
+  display: grid; place-items: center;
+  border-radius: 12px;
+  background: radial-gradient(90px 90px at 30% 20%, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.06) 60%);
+  border: 1px solid var(--border);
+}
+.card h3{
+  margin: .4rem 0 0;
+  font-size: 1.05rem;
+  letter-spacing: .01em;
+}
+.card p{
+  margin: .35rem 0 0;
+  color: var(--muted);
+  font-size: .98rem;
+}
+
+/* Note text under grid */
+.note{
+  margin: var(--space-4) 0 var(--space-6);
+  color: var(--muted);
+  text-align: center;
+}
+
+/* =========================
+   Footer
+   ========================= */
+.site-footer{
+  border-top: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.02) 100%);
+}
+.footer-inner{
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem;
+  padding: var(--space-4) 0 var(--space-5);
+}
+.top-link{
+  padding: .55rem .8rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--text);
+}
+.top-link:hover{ background: var(--card-hover); }
+
+/* =========================
+   Topic Page Extras (reusable)
+   ========================= */
+main.wrap .back{ display: inline-block; margin-top: 1rem; color: var(--accent); }
+.video{
+  margin: var(--space-3) 0;
+  position: relative; width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000; border-radius: 16px; overflow: hidden;
+  border: 1px solid var(--border); box-shadow: var(--shadow-soft);
+}
+.video iframe, .video video{
+  position: absolute; inset: 0; width: 100%; height: 100%;
+}
+.content .lead{ margin-top: .5rem; }
+.bullets{ padding-left: 1.2rem; }
+.bullets li{ margin: .35rem 0; }
+
+/* =========================
+   Accessibility & Motion
+   ========================= */
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important; }
+}
+
+/* =========================
+   Active Nav (script adds .is-active or aria-current)
+   ========================= */
+.nav-list a[aria-current="page"], .nav-list a.is-active{
+  color: #fff;
+  background: linear-gradient(180deg, var(--card-hover), transparent);
+  border-color: var(--border);
+}
+
+
+/* === Uniform media sizing for topic pages === */
+
+/* Make the FIRST figure on each topic page (your image) 16:9 like the video */
+main.wrap > figure:not(.video){
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;     /* same as video */
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+  background: #000;
+  margin: var(--space-3) 0; /* match spacing */
+}
+
+/* Fill the image inside that figure and crop nicely */
+main.wrap > figure:not(.video) > img{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;         /* crops to keep things consistent */
+  object-position: center;
+  display: block;
+}
+
+/* Keep image figcaptions readable and spaced */
+main.wrap > figure:not(.video) > figcaption{
+  position: static;          /* normal flow below the image box */
+  margin-top: .6rem;
+  font-size: .9rem;
+  color: var(--muted);
+}
+
+/* Videos already use .video; align styles so they match the image block */
+.video{
+  margin: var(--space-3) 0;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Ensure <video> files fill and crop gracefully if needed */
+.video video{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;        /* keeps framing consistent across files */
+}
+
+/* If you use iframes (YouTube), they already fill via absolute positioning in existing CSS */
+.video iframe{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
